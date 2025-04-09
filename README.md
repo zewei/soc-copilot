@@ -1,23 +1,12 @@
-<p align="center"><img src="https://raw.githubusercontent.com/enjoy-digital/litex/master/doc/litex.png"></p>
 
-```
-             Copyright 2012-2024 / Enjoy-Digital & LiteX developers
-```
-[![](https://github.com/enjoy-digital/litex/workflows/ci/badge.svg)](https://github.com/enjoy-digital/litex/actions)
-![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)
-
-# Welcome to LiteX!
+# Welcome to SoC Copilot!
 
 
-The LiteX framework provides a convenient and efficient infrastructure to create FPGA Cores/SoCs, to explore various digital design architectures and create [full FPGA based  systems](https://github.com/enjoy-digital/litex/wiki/Projects).
+The SoC Copilot framework provides a convenient and efficient infrastructure to create SoCs.
 
-**LiteX SoC builder framework quick tour/overview: [Slides](https://docs.google.com/presentation/d/1mQOWqgmyQxpjLAzFwCulqgkp0TuxmaIDYp5iUfPqqIk/edit?usp=sharing)**
+**SoC builder framework quick tour/overview: [Wiki](https://github.com/enjoy-digital/litex/wiki)!**
 
-**Want to get started and/or looking for documentation? Make sure to visit the [Wiki](https://github.com/enjoy-digital/litex/wiki)!**
-
-**A question or want to get in touch? Join us on [Discord](https://discord.gg/PkJwjDbxeG) or on our IRC channel: [#litex at irc.libera.chat]**.
-
-LiteX provides all the common components required to easily create an FPGA Core/SoC:
+SoC Copilot provides all the common components required to easily create an SoC:
  - :heavy_check_mark: Buses and Streams (Wishbone, AXI, Avalon-ST) and their  interconnect.
  - :heavy_check_mark: Simple cores: RAM, ROM, Timer, UART, JTAG, etc….
  - :heavy_check_mark: Complex cores through the ecosystem of cores: [LiteDRAM](https://github.com/enjoy-digital/litedram), [LitePCIe](https://github.com/enjoy-digital/litepcie), [LiteEth](https://github.com/enjoy-digital/liteeth), [LiteSATA](https://github.com/enjoy-digital/litesata), etc...
@@ -28,35 +17,12 @@ LiteX provides all the common components required to easily create an FPGA Core/
  - :heavy_check_mark: Build backends for open-source and vendors toolchains.
  - :heavy_check_mark: And a lot more... :)
 
-By combining LiteX with the ecosystem of cores, creating complex SoCs becomes a lot easier than with traditional approaches while providing better portability and flexibility: Here is for example a Multi-core Linux Capable SoC based on VexRiscv-SMP CPU, LiteDRAM, LiteSATA built and integrated with LiteX, running on a cheap repurposed [Acorn CLE215+ Mining Board](https://github.com/enjoy-digital/litex/wiki/Use-LiteX-on-the-Acorn-CLE-215):
-![](https://user-images.githubusercontent.com/1450143/103343266-f8cc9a00-4a8b-11eb-9444-f02e1522a490.png)
-For more info, have a look at [Linux-on-LiteX-Vexriscv](https://github.com/litex-hub/linux-on-litex-vexriscv) project and try running Linux on your FPGA board!
-
-LiteX's digital logic is currently described with [Migen](https://github.com/m-labs/migen) which does not prevent users to create mixed language projects:
-- It's very common and easy to integrate VHDL/Verilog/SystemVerilog/nMigen/Spinal-HDL code in LiteX!
-- It's also very common to do the opposite and generate the LiteX design as a verilog file and integrate it in a traditional flow.
-
-
-LiteX was initially developed by [Enjoy-Digital](http://enjoy-digital.fr/) to create projects for clients (and we are still using it for that :)) and trying to take the different clients' requirements/needs consideration made, we think, the framework very flexible:
+SoC Copilot was initially developed by [Enjoy-Digital](http://enjoy-digital.fr/) to create projects for clients (and we are still using it for that :)) and trying to take the different clients' requirements/needs consideration made, we think, the framework very flexible:
  - Some users only want to use it to easily interconnect their existing VHDL/Verilog/SV cores.
  - Some users are only interested to reuse the PCIe/Ethernet/SATA/etc cores as regular core and just integrate them in their traditional flow.
  - Some users with a hardware background start with the above approaches and then switch later to the full Python flow since find it more efficient.
  - Some users with a software background and fluent with Python start playing with FPGAs while they would probably never touch FPGA otherwise :)
  - Etc...
-
-We are well aware that everyone has a different background, so it's up to you to pick the right approach with LiteX that will be convenient for you!
-
-To get started we encourage you to read the [wiki](https://github.com/enjoy-digital/litex/wiki).
-
-You already have a FPGA board(s)? Visit [LiteX-Boards](https://github.com/litex-hub/litex-boards) to see if your board(s) is already supported!
-
-The framework is also far from perfect and we'll be happy to have your [feedback or/and contributions](https://github.com/enjoy-digital/litex/wiki/Feedback-Contribution-Support).
-
-Have fun! :wink:
-
-We share this project under a permissive BSD 2-Clause License, inspired by our fantastic community and supportive clients. If LiteX benefits your research, hobby, or commercial projects, we kindly ask for your positive collaboration and respect for the effort involved.
-
-Thank you for helping us improve LiteX and being part of our community!
 
 # Typical LiteX design flow:
 ```
@@ -93,22 +59,6 @@ LiteX already supports various softcores CPUs: VexRiscv, Rocket, LM32, Mor1kx, P
 | [LiteSPI](http://github.com/litex-hub/litespi)               | [![](https://github.com/litex-hub/litespi/workflows/ci/badge.svg)](https://github.com/litex-hub/litespi/actions)                   | SPI/SPI-Flash               |
 | [LiteScope](http://github.com/enjoy-digital/litescope)       | [![](https://github.com/enjoy-digital/litescope/workflows/ci/badge.svg)](https://github.com/enjoy-digital/litescope/actions)       | Logic analyzer            |
 
-# Examples of designs built with LiteX:
-Custom PCIe SDI Capture/Playback board built around LitePCIe and integrated with LiteX, allowing full control of the SDI flow and very low latency.
-![](https://user-images.githubusercontent.com/1450143/103343791-282fd680-4a8d-11eb-82bd-c068ac1ad293.png)
-Alternative firmware/gateware for the SDS1104X-E Scope:
-![enter image description here](https://user-images.githubusercontent.com/1450143/124901562-6977e480-dfe2-11eb-9071-4344d1146968.png)
-HBM2 test infrastructure on Forest Kitten 33:
-![enter image description here](https://user-images.githubusercontent.com/1450143/124902018-d4c1b680-dfe2-11eb-89c4-8b498605c34d.png)
-
-To discover more products/projects built with LiteX, visit the [projects page](https://github.com/enjoy-digital/litex/wiki/Projects) on the Wiki.
-
-# Sponsors/Partners:
-
-A huge shoutout to our awesome industrial clients who have given us the green light to incorporate some of the developments we initially created for them directly into LiteX! These innovative developments often provide the building blocks for the features that the wider community can then use and improve upon. Your support has been instrumental for the project, and we are incredibly grateful for your partnership. Thanks!
-
-![](https://github.com/enjoy-digital/litex/assets/1450143/444d8fc2-3092-487c-b52f-bdd776b790a4.png)
-
 # Papers, Presentations, Tutorials, Links
 **FPGA lessons/tutorials:**
 - https://github.com/enjoy-digital/fpga_101
@@ -125,16 +75,6 @@ A huge shoutout to our awesome industrial clients who have given us the green li
 
 **RISC-V Getting Started Guide:**
 - https://risc-v-getting-started-guide.readthedocs.io/en/latest/
-
-**LiteX vs. Vivado First Impressions:**
-- https://www.bunniestudios.com/blog/?p=5018
-
-**35C3 - Snakes and Rabbits - How CCC shaped an open hardware success:**
-- https://www.youtube.com/watch?v=AlmVxR0417c
-
-**Tim has to many projects - LatchUp Edition:**
-https://www.youtube.com/watch?v=v7WrTmexod0
-
 
 # Sub-packages
 **litex.gen**
@@ -194,12 +134,3 @@ $ litex_sim --cpu-type=vexriscv
   You should get the BIOS prompt like the one below.
 
 <p align="center"><img src="https://raw.githubusercontent.com/enjoy-digital/litex/master/doc/bios_screenshot.png"></p>
-
-# Community
-
-<p align="center"><img src="https://raw.githubusercontent.com/enjoy-digital/litex/master/doc/litex-hub.png" width="400"></p>
-
-Over the years a friendly community has grown around LiteX and the ecosystem of cores. Feedbacks and contributions have already greatly improved the project, EnjoyDigital still leads the development but it is now a community project and collaborative projects created around/with LiteX can be found at https://github.com/litex-hub.
-
-# Contact
-E-mail: florent@enjoy-digital.fr

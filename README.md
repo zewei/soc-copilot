@@ -132,5 +132,3 @@ $ litex_sim --cpu-type=vexriscv
 6. Run a terminal program on the board's serial port at 115200 8-N-1.
 
   You should get the BIOS prompt like the one below.
-
-<p align="center"><img src="https://raw.githubusercontent.com/enjoy-digital/litex/master/doc/bios_screenshot.png"></p>

@@ -2,7 +2,9 @@
 # Welcome to SoC Copilot!
 
 
-The SoC Copilot framework provides a convenient and efficient infrastructure to create SoCs.The SoC is generated using a custom generator written in [Migen HDL](https://github.com/m-labs/migen), which pulls together the CPU, peripherals, and crossbar and creates the address mapping and the platform-support files needed to compile software for the core.
+The SoC Copilot framework provides a convenient and efficient infrastructure to create SoCs.The SoC is generated using a custom generator written in [Migen HDL](https://github.com/m-labs/migen), which pulls together the CPU, peripherals, and creates the address mapping and the platform-support files needed to compile software for the core.
+
+Build a 100% Python-based SoC Design environment! SoC-Copilot seeks for new design methodologies, collaboration approaches and creation of reusable IPs and subsystems. The main focus is on large and complex SoCs in which integration expertise is essential. The main goals are 1) creation of a versatile SoC template and 2) development of agile SoC development design process. 
 
 **SoC Copilot framework quick overview: [Wiki][(https://github.com/zewei/soc-copilot/wiki/SoC-Copilot-Tutorial)]!**
 

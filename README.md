@@ -4,7 +4,7 @@
 
 The SoC Copilot framework provides a convenient and efficient infrastructure to create SoCs.
 
-**SoC builder framework quick tour/overview: [Wiki](https://github.com/enjoy-digital/litex/wiki)!**
+**SoC builder framework quick tour/overview: [Wiki][(https://github.com/zewei/soc-copilot/wiki/SoC-Copilot-Tutorial)]!**
 
 SoC Copilot provides all the common components required to easily create an SoC:
  - :heavy_check_mark: Buses and Streams (Wishbone, AXI, Avalon-ST) and their  interconnect.

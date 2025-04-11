@@ -97,4 +97,93 @@ LiteX was initially developed by [Enjoy-Digital](http://enjoy-digital.fr/) to cr
  - Etc...
 
 # Typical LiteX design flow:
+```
+                                      +---------------+
+                                      |FPGA toolchains|
+                                      +----^-----+----+
+                                           |     |
+                                        +--+-----v--+
+                       +-------+        |           |
+                       | Migen +-------->           |
+                       +-------+        |           |        Your design
+                                        |   LiteX   +---> ready to be used!
+                                        |           |
+              +----------------------+  |           |
+              |LiteX Cores Ecosystem +-->           |
+              +----------------------+  +-^-------^-+
+               (Eth, SATA, DRAM, USB,     |       |
+                PCIe, Video, etc...)      +       +
+                                         board   target
+                                         file    file
+```
+LiteX already supports various softcores CPUs: VexRiscv, Rocket, LM32, Mor1kx, PicoRV32, BlackParrot and is compatible with the LiteX's Cores Ecosystem:
 
+| Name                                                         | Build Status                                                                                                                       | Description               |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| [LiteX-Boards](http://github.com/litex-hub/litex-boards)     | [![](https://github.com/litex-hub/litex-boards/workflows/ci/badge.svg)](https://github.com/litex-hub/litex-boards/actions)         | Boards support            |
+| [LiteDRAM](http://github.com/enjoy-digital/litedram)         | [![](https://github.com/enjoy-digital/litedram/workflows/ci/badge.svg)](https://github.com/enjoy-digital/litedram/actions)         | DRAM                      |
+| [LiteEth](http://github.com/enjoy-digital/liteeth)           | [![](https://github.com/enjoy-digital/liteeth/workflows/ci/badge.svg)](https://github.com/enjoy-digital/liteeth/actions)           | Ethernet                  |
+| [LitePCIe](http://github.com/enjoy-digital/litepcie)         | [![](https://github.com/enjoy-digital/litepcie/workflows/ci/badge.svg)](https://github.com/enjoy-digital/litepcie/actions)         | PCIe                      |
+| [LiteSATA](http://github.com/enjoy-digital/litesata)         | [![](https://github.com/enjoy-digital/litesata/workflows/ci/badge.svg)](https://github.com/enjoy-digital/litesata/actions)         | SATA                      |
+| [LiteSDCard](http://github.com/enjoy-digital/litesdcard)     | [![](https://github.com/enjoy-digital/litesdcard/workflows/ci/badge.svg)](https://github.com/enjoy-digital/litesdcard/actions)     | SD card                   |
+| [LiteICLink](http://github.com/enjoy-digital/liteiclink)     | [![](https://github.com/enjoy-digital/liteiclink/workflows/ci/badge.svg)](https://github.com/enjoy-digital/liteiclink/actions)     | Inter-Chip communication  |
+| [LiteJESD204B](http://github.com/enjoy-digital/litejesd204b) | [![](https://github.com/enjoy-digital/litejesd204b/workflows/ci/badge.svg)](https://github.com/enjoy-digital/litejesd204b/actions) | JESD204B                  |
+| [LiteSPI](http://github.com/litex-hub/litespi)               | [![](https://github.com/litex-hub/litespi/workflows/ci/badge.svg)](https://github.com/litex-hub/litespi/actions)                   | SPI/SPI-Flash               |
+| [LiteScope](http://github.com/enjoy-digital/litescope)       | [![](https://github.com/enjoy-digital/litescope/workflows/ci/badge.svg)](https://github.com/enjoy-digital/litescope/actions)       | Logic analyzer            |
+
+# Sub-packages
+**litex.gen**
+Provides specific or experimental modules to generate HDL that are not integrated in Migen.
+
+**litex.build:**
+Provides tools to build FPGA bitstreams (interface to vendor toolchains) and to simulate HDL code or full SoCs.
+
+**litex.soc:**
+Provides definitions/modules to build cores (bus, bank, flow), cores and tools to build a SoC from such cores.
+
+# Quick start guide
+1. Install Python 3.6+ and FPGA vendor's development tools and/or [Verilator](http://www.veripool.org/).
+2. Install Migen/LiteX and the LiteX's cores:
+
+```sh
+$ wget https://raw.githubusercontent.com/enjoy-digital/litex/master/litex_setup.py
+$ chmod +x litex_setup.py
+$ ./litex_setup.py --init --install --user (--user to install to user directory) --config=(minimal, standard, full)
+```
+  Later, if you need to update all repositories:
+```sh
+$ ./litex_setup.py --update
+```
+
+> **Note:** On MacOS, make sure you have [HomeBrew](https://brew.sh) installed. Then do, ``brew install wget``.
+
+> **Note:** On Windows, it's possible you'll have to set `SHELL` environment variable to `SHELL=cmd.exe`.
+
+3. Install a RISC-V toolchain (Only if you want to test/create a SoC with a CPU):
+```sh
+$ pip3 install meson ninja
+$ ./litex_setup.py --gcc=riscv
+```
+
+4. Build the target of your board...:
+
+Go to litex-boards/litex_boards/targets and execute the target you want to build.
+
+5. ... and/or install [Verilator](http://www.veripool.org/) and test LiteX directly on your computer without any FPGA board:
+
+On Linux (Ubuntu):
+```sh
+$ sudo apt install libevent-dev libjson-c-dev verilator
+$ litex_sim --cpu-type=vexriscv
+```
+
+On MacOS:
+```sh
+$ brew install json-c verilator libevent
+$ brew cask install tuntap
+$ litex_sim --cpu-type=vexriscv
+```
+
+6. Run a terminal program on the board's serial port at 115200 8-N-1.
+
+  You should get the BIOS prompt like the one below.

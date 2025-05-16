@@ -25,14 +25,13 @@ from litex.soc.interconnect.axi.axi_stream import AXIStreamInterface
 
 def ax_description(address_width, version="axi4"):
     len_width  = {"axi3":4, "axi4":8}[version]
-    size_width = {"axi3":4, "axi4":3}[version]
     lock_width = {"axi3":2, "axi4":1}[version]
     # * present for interconnect with others cores but not used by LiteX.
     return [
         ("addr",   address_width),   # Address Width.
         ("burst",  2),               # Burst type.
         ("len",    len_width),       # Number of data (-1) transfers (up to 16 (AXI3) or 256 (AXI4)).
-        ("size",   size_width),      # Number of bytes (-1) of each data transfer (up to 1024-bit).
+        ("size",   3),               # Number of bytes (-1) of each data transfer (up to 1024-bit).
         ("lock",   lock_width),      # *
         ("prot",   3),               # *
         ("cache",  4),               # *
@@ -154,6 +153,17 @@ class AXIRemapper(LiteXModule):
         self.comb += master.connect(slave)
         self.comb += slave.aw.addr.eq(origin | master.aw.addr & mask)
         self.comb += slave.ar.addr.eq(origin | master.ar.addr & mask)
+
+# AXI Offset ---------------------------------------------------------------------------------------
+
+class AXIOffset(LiteXModule):
+    """Removes offset from AXI addresses."""
+    def __init__(self, master, slave, offset=0x00000000):
+
+        # Address Mask and Shift.
+        self.comb += master.connect(slave)
+        self.comb += slave.aw.addr.eq(master.aw.addr - offset)
+        self.comb += slave.ar.addr.eq(master.ar.addr - offset)
 
 # AXI Bursts to Beats ------------------------------------------------------------------------------
 
